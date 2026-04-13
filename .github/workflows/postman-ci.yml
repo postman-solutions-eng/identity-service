@@ -58,12 +58,12 @@ jobs:
         run: postman login --with-api-key "$POSTMAN_API_KEY"
 
       - name: Lint OpenAPI spec
-        run: postman api lint "$POSTMAN_SPEC_PATH"
+        run: postman api lint "$POSTMAN_SPEC_PATH" --report-events
 
       - name: Run collection from local files against Local environment
         run: |
           # Runs the collection stored in this repository against the checked-in Local environment.
-          postman collection run "$POSTMAN_COLLECTION_PATH" \
+          postman collection run "$POSTMAN_COLLECTION_PATH" --report-events \
             -e "$POSTMAN_ENV_PATH" \
             --bail
 
@@ -80,6 +80,6 @@ jobs:
           if [[ -f identity-api.pid ]]; then
             kill $(cat identity-api.pid) || true
           fi
-          
+
       - name: Publish changes to Cloud
         run: postman workspace push -y
