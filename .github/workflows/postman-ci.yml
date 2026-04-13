@@ -1,0 +1,82 @@
+name: Postman CI
+
+on:
+  push:
+    branches:
+      - kt-working-branch
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  postman:
+    runs-on: ubuntu-latest
+    env:
+      # Required secret: create this in GitHub as a repository or organization secret.
+      POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+
+      # Repository-local file paths discovered from this repo.
+      POSTMAN_SPEC_PATH: postman/specs/identity-api.openapi.yaml
+      POSTMAN_COLLECTION_PATH: postman/collections/Identity API
+      POSTMAN_ENV_PATH: postman/environments/Local.environment.yaml
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Start local API for collection run
+        run: |
+          npm run start > identity-api.log 2>&1 &
+          echo $! > identity-api.pid
+
+      - name: Wait for API health endpoint
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://localhost:3001/health > /dev/null; then
+              echo "Identity API is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Identity API failed to start in time"
+          cat identity-api.log || true
+          exit 1
+
+      - name: Install Postman CLI
+        run: |
+          curl -fsSL https://dl-cli.pstmn.io/install/linux64.sh | sh
+          postman --version
+
+      - name: Authenticate Postman CLI
+        run: postman login --with-api-key "$POSTMAN_API_KEY"
+
+      - name: Lint OpenAPI spec
+        run: postman api lint "$POSTMAN_SPEC_PATH"
+
+      - name: Run collection from local files against Local environment
+        run: |
+          # Runs the collection stored in this repository against the checked-in Local environment.
+          postman collection run "$POSTMAN_COLLECTION_PATH" \
+            -e "$POSTMAN_ENV_PATH" \
+            --bail
+
+      - name: Upload API startup log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: identity-api-log
+          path: identity-api.log
+
+      - name: Stop local API
+        if: always()
+        run: |
+          if [[ -f identity-api.pid ]]; then
+            kill $(cat identity-api.pid) || true
+          fi

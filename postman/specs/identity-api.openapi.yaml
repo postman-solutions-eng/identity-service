@@ -1,0 +1,181 @@
+openapi: 3.0.3
+info:
+  title: 'Identity API'
+  version: '1.0.0'
+  description: |-
+    Demo identity service.
+
+    This API manages users and identity lookups. It runs locally on port 3001 by default
+    and is deployed as `identity-api` in the `identity` Kubernetes namespace.
+servers:
+  - url: 'http://localhost:3001'
+    description: Local development server
+paths:
+  /users:
+    get:
+      summary: List users
+      operationId: listUsers
+      responses:
+        '200':
+          description: Users list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUsersResponse'
+    post:
+      summary: Create user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+        '200':
+          description: Existing user returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExistingUserResponse'
+        '400':
+          description: Missing required fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingFields:
+                  summary: Missing required fields
+                  value:
+                    error: 'name and email are required'
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResponse'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  summary: User not found
+                  value:
+                    error: 'user not found'
+  /health:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Service health
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - email
+      properties:
+        id:
+          type: string
+          example: 'u1'
+        name:
+          type: string
+          example: 'Alice'
+        email:
+          type: string
+          format: email
+          example: 'alice@example.com'
+    CreateUserRequest:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+    CreateUserResponse:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    ExistingUserResponse:
+      type: object
+      required:
+        - user
+        - existing
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        existing:
+          type: boolean
+          example: true
+    GetUserResponse:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    ListUsersResponse:
+      type: object
+      required:
+        - users
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - service
+      properties:
+        status:
+          type: string
+          example: 'ok'
+        service:
+          type: string
+          example: 'identity-api'
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: 'user not found'
