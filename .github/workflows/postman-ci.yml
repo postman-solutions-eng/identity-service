@@ -58,13 +58,19 @@ jobs:
         run: postman login --with-api-key "$POSTMAN_API_KEY"
 
       - name: Lint OpenAPI spec
-        run: postman api lint "$POSTMAN_SPEC_PATH" --report-events
+        run: postman api lint "$POSTMAN_SPEC_PATH"
+                --reporters cli,json \
+                --reporter-json-export test-results.json \
+                --report-events
 
       - name: Run collection from local files against Local environment
         run: |
           # Runs the collection stored in this repository against the checked-in Local environment.
-          postman collection run "$POSTMAN_COLLECTION_PATH" --report-events \
+          postman collection run "$POSTMAN_COLLECTION_PATH" \
             -e "$POSTMAN_ENV_PATH" \
+            --reporters cli,json \
+            --reporter-json-export test-results.json \
+            --report-events
             --bail
 
       - name: Upload API startup log on failure
