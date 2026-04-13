@@ -68,7 +68,7 @@ jobs:
           # Runs the collection stored in this repository against the checked-in Local environment.
           postman collection run "$POSTMAN_COLLECTION_PATH" \
             -e "$POSTMAN_ENV_PATH" \
-            --reporters cli,json \
+            --reporters cli \
             --reporter-json-export test-results.json \
             --report-events
             --bail
