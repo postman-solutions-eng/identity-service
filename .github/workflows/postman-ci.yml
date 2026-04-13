@@ -80,3 +80,6 @@ jobs:
           if [[ -f identity-api.pid ]]; then
             kill $(cat identity-api.pid) || true
           fi
+          
+      - name: Publish changes to Cloud
+        run: postman workspace push -y
