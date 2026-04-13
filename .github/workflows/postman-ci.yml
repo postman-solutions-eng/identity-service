@@ -71,7 +71,7 @@ jobs:
             --reporters cli \
             --reporter-json-export test-results.json \
             --report-events
-            --bail-folder
+            --bail
 
       - name: Upload API startup log on failure
         if: failure()
