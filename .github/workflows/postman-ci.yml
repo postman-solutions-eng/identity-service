@@ -59,7 +59,7 @@ jobs:
 
       - name: Lint OpenAPI spec
         run: postman spec lint "$POSTMAN_SPEC_PATH"
-                --reporters cli,json \
+                -o json \
                 --reporter-json-export test-results.json \
                 --report-events
 
