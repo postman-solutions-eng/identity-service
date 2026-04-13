@@ -58,7 +58,7 @@ jobs:
         run: postman login --with-api-key "$POSTMAN_API_KEY"
 
       - name: Lint OpenAPI spec
-        run: postman api lint "$POSTMAN_SPEC_PATH"
+        run: postman spec lint "$POSTMAN_SPEC_PATH"
                 --reporters cli,json \
                 --reporter-json-export test-results.json \
                 --report-events
