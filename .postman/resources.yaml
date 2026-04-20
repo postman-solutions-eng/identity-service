@@ -2,6 +2,16 @@
 workspace:
   id: dc7a3b57-0d14-4509-9579-f73cc8fcd236
 
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  specs:
+    ../postman/specs/identity-api.openapi.yaml: b5a25f14-956e-4a57-aa37-4fbadf5345cb
+  environments:
+    ../postman/environments/Local.environment.yaml: 0c083114-df85-5aee-b1f7-5b3316305af6
+  collections:
+    ../postman/collections/Identity API: 52505546-7be86fdd-0292-46c0-b03c-2a077fcc88f9
+
 # All resources in the `postman/` folder are automatically registered in Local View.
 # Point to additional files outside the `postman/` folder to register them individually. Example:
 #localResources:
