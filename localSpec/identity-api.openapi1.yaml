@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: 'Identity API'
+  title: 'Identity API Original'
   version: '1.0.0'
   description: |-
     Demo identity service.

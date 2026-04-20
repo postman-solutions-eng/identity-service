@@ -17,4 +17,4 @@ cloudResources:
 
 localResources:
   specs:
-    - ../localSpecs/identity-api.openapi.yaml
+    - ../localSpecs/identity-api.openapi1.yaml
