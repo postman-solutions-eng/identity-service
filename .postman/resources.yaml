@@ -15,6 +15,6 @@ cloudResources:
 # All resources in the `postman/` folder are automatically registered in Local View.
 # Point to additional files outside the `postman/` folder to register them individually. Example:
 
-localResources:
-  specs:
-    - ../localSpecs/identity-api.openapi1.yaml
+# localResources:
+#   specs:
+#     - ../localSpecs/identity-api.openapi1.yaml
