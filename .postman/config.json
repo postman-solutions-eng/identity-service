@@ -1,0 +1,14 @@
+{
+  "workspace": {
+    "id": "dc7a3b57-0d14-4509-9579-f73cc8fcd236"
+  },
+  "entities": {
+    "collections": [],
+    "environments": [],
+    "specs": [
+      "../postman/specs/identity-api.openapi.yaml"
+    ],
+    "flows": [],
+    "globals": []
+  }
+}
