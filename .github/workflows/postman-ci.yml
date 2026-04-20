@@ -59,6 +59,7 @@ jobs:
 
       - name: Lint OpenAPI spec
         run: postman spec lint b5a25f14-956e-4a57-aa37-4fbadf5345cb \
+                --output json \
                 --fail-severity WARNING \
                 --report-events
 
