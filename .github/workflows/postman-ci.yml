@@ -59,7 +59,7 @@ jobs:
 
       - name: Lint OpenAPI spec
         run: postman spec lint b5a25f14-956e-4a57-aa37-4fbadf5345cb \
-                --fail-severity error \
+                --fail-severity warning \
                 --report-events
 
       - name: Run collection from local files against Local environment
