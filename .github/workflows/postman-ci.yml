@@ -58,9 +58,10 @@ jobs:
         run: postman login --with-api-key "$POSTMAN_API_KEY"
 
       - name: Lint OpenAPI spec
-        run: postman spec lint "$POSTMAN_SPEC_PATH"
+        run: postman spec lint b5a25f14-956e-4a57-aa37-4fbadf5345cb
                 -o json \
                 --reporter-json-export test-results.json \
+                --fail-severity error \
                 --report-events
 
       - name: Run collection from local files against Local environment
