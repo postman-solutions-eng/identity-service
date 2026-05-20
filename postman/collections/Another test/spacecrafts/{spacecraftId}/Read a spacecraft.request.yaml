@@ -7,19 +7,6 @@ pathVariables:
   - key: spacecraftId
     value: string
     description: The unique identifier of the spacecraft
-    $type: |-
-      {
-        "type": "object",
-        "properties": {
-          "value": {
-            "description": "The unique identifier of a spacecraft",
-            "type": "string"
-          }
-        },
-        "required": [
-          "value"
-        ]
-      }
 body:
   type: text
   content: ""

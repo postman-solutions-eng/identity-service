@@ -1,4 +1,12 @@
+owner: "52505546"
+team: "13648292"
+lastUpdatedBy: "52505546"
+lastRevision: 1778856462000
 name: Mock
+color: null
 values:
   - key: baseUrl
-    value: ''
+    value: ""
+    enabled: true
+createdAt: 2026-05-15T14:47:42.000Z
+updatedAt: 2026-05-15T14:47:42.000Z

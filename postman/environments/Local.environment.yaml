@@ -1,6 +1,12 @@
+owner: "52505546"
+team: "13648292"
+lastUpdatedBy: "52505546"
+lastRevision: 1778856462000
 name: Local
+color: 60
 values:
   - key: baseUrl
-    value: 'http://localhost:3001'
+    value: http://localhost:3001
     enabled: true
-color: 60
+createdAt: 2026-04-20T18:23:59.000Z
+updatedAt: 2026-05-15T14:47:42.000Z

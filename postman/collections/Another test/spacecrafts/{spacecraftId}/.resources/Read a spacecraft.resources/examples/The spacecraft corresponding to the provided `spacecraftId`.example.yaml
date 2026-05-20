@@ -29,35 +29,4 @@ response:
         "type": "probe",
         "description": "string"
       }
-    $type: |-
-      {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "The unique identifier of a spacecraft"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "capsule",
-              "probe",
-              "satellite",
-              "spaceplane",
-              "station"
-            ]
-          },
-          "description": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "type"
-        ]
-      }
 order: 1000

@@ -7,7 +7,7 @@ description: |-
 variables:
   baseUrl: example.com
 auth:
-  - id: d3ce2029-14a1-45c3-9e1d-f92be0cf2556
+  - id: c823f411-67e2-4d14-9da2-0a62b1c83516
     type: apikey
     name: apikey auth
     credentials:

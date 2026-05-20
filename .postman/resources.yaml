@@ -1,17 +1,24 @@
-# Use this workspace to collaborate
 workspace:
   id: dc7a3b57-0d14-4509-9579-f73cc8fcd236
-
-# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
-
 cloudResources:
   specs:
     ../postman/specs/identity-api.openapi.yaml: b5a25f14-956e-4a57-aa37-4fbadf5345cb
+    ../postman/specs/New Specification/New Specification.yaml: 3dc99a93-728d-47e8-a976-91c7e6916f6b
   environments:
-    ../postman/environments/Local.environment.yaml: 0c083114-df85-5aee-b1f7-5b3316305af6
+    ../postman/environments/Local.environment.yaml: 52505546-0c083114-df85-5aee-b1f7-5b3316305af6
+    ../postman/environments/Mock.environment.yaml: 52505546-b0db0185-0b90-4408-9c43-af4997cd2122
   collections:
     ../postman/collections/Identity API: 52505546-7be86fdd-0292-46c0-b03c-2a077fcc88f9
-
+    ../postman/collections/Another test: 52505546-40aeffe1-efe3-431f-bb49-aaf9b04479b7
+    ../postman/collections/End to end tests: 52505546-54cabc3c-4b62-4dd9-bb1d-31523d4794b2
 localResources:
   specs:
     - ../postman/specs/New Specification/New Specification.yaml
+    - ../postman/specs/identity-api.openapi.yaml
+  collections:
+    - ../postman/collections/Another test
+    - ../postman/collections/End to end tests
+    - ../postman/collections/Identity API
+  environments:
+    - ../postman/environments/Mock.environment.yaml
+    - ../postman/environments/Local.environment.yaml
